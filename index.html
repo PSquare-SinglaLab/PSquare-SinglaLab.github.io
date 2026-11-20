@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Singla Lab &amp; P&sup2;-Lab &middot; IIT Roorkee</title>
+<meta name="description" content="A joint organisation of the Singla Lab and the P&sup2;-Lab at IIT Roorkee, with links to both groups.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..650&amp;family=JetBrains+Mono:wght@400..500&amp;family=Newsreader:opsz,wght@6..72,400..500&amp;display=swap">
+<style>
+  /* A page of its own: no site header, no menu. Two labs, two doors. */
+  :root {
+    --paper: #F9EBDE; --surface: #FFFBF6; --ink: #1C1713; --ink-2: #4C4239; --ink-3: #6C6053;
+    --rule: #E7D6C4; --indigo: #173F8A; --indigo-soft: #EAEDF6; --teal: #1C7364; --teal-soft: #E0F0EC;
+    --serif: 'Newsreader', Georgia, serif; --sans: 'Inter', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #17120E; --surface: #221B15; --ink: #F6EEE4; --ink-2: #D6C8B8; --ink-3: #AC9E8E;
+      --rule: #3A3027; --indigo: #8FB4EE; --indigo-soft: #1E2739; --teal: #5EC4AD; --teal-soft: #143029;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1rem/1.6 var(--sans); }
+  main { max-width: 56rem; margin: 0 auto; padding-inline: 1.25rem; padding-block: clamp(2.5rem, 8vh, 5.5rem) 3rem; }
+  .eyebrow { font: 500 .72rem/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 1rem; }
+  h1 { font: 400 clamp(2rem, 5vw, 3.1rem)/1.1 var(--serif); letter-spacing: -.01em; margin: 0 0 1rem; }
+  .lede { font-size: 1.08rem; color: var(--ink-2); max-width: 40rem; margin: 0 0 2.5rem; }
+  .labs { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+  .lab {
+    display: grid; gap: .6rem; align-content: start; padding: 1.5rem 1.5rem 1.35rem; border-radius: 14px;
+    background: var(--surface); border: 1px solid var(--rule); color: inherit; text-decoration: none;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .lab:hover, .lab:focus-visible { border-color: var(--accent); box-shadow: 0 14px 32px -18px rgba(0,0,0,.35); transform: translateY(-2px); outline: none; }
+  .lab-1 { --accent: var(--indigo); --accent-soft: var(--indigo-soft); }
+  .lab-2 { --accent: var(--teal); --accent-soft: var(--teal-soft); }
+  .dept { justify-self: start; font: 500 .66rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+          color: var(--accent); background: var(--accent-soft); padding: .35rem .55rem; border-radius: 5px; }
+  .lab h2 { font: 400 1.6rem/1.2 var(--serif); margin: .2rem 0 0; }
+  .pi { margin: 0; color: var(--ink-2); font-size: .95rem; }
+  .focus { margin: 0; color: var(--ink-2); font-size: .93rem; }
+  .go { margin-top: .5rem; font: 500 .74rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .go span { display: inline-block; transition: transform .2s; }
+  .lab:hover .go span { transform: translateX(3px); }
+  footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); color: var(--ink-3); font-size: .88rem;
+           display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; }
+  footer a { color: var(--ink-2); }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">IIT Roorkee &middot; on Hugging Face</p>
+  <h1>Singla Lab &amp; P&sup2;-Lab</h1>
+  <p class="lede">Two research groups at the Indian Institute of Technology Roorkee, sharing models and datasets as one organisation on Hugging Face.</p>
+
+  <div class="labs">
+    <a class="lab lab-1" href="https://www.jitinsingla.in/">
+      <span class="dept">Biosciences &amp; Bioengineering</span>
+      <h2>Singla Lab</h2>
+      <p class="pi">Jitin Singla</p>
+      <p class="focus">Computational biology and AI: cellular architecture from tomography, AI for healthcare diagnostics, and Sanskrit language models.</p>
+      <span class="go">Visit the lab <span>&rarr;</span></span>
+    </a>
+    <a class="lab lab-2" href="https://psquare-lab.github.io/">
+      <span class="dept">Electrical Engineering</span>
+      <h2>P&sup2;-Lab</h2>
+      <p class="pi">Parikshit Pareek</p>
+      <p class="focus">Probabilistic and computational challenges of operating electrical energy grids, combining AI, optimisation and physics.</p>
+      <span class="go">Visit the lab <span>&rarr;</span></span>
+    </a>
+  </div>
+
+  <footer>
+    <span>Indian Institute of Technology Roorkee</span>
+  </footer>
+</main>
+</body>
+</html>
