@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F9EBDE">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <title>Singla Lab &amp; P&sup2;-Lab &middot; IIT Roorkee</title>
 <meta name="description" content="A joint organisation of the Singla Lab and the P&sup2;-Lab at IIT Roorkee, with links to both groups.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,8 +18,14 @@
     --serif: 'Newsreader', Georgia, serif; --sans: 'Inter', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
   }
+  /* Dark: chosen with the switch, or -- before any choice, or with no script --
+     taken from the system setting. */
+  :root[data-theme='dark'] {
+    --paper: #17120E; --surface: #221B15; --ink: #F6EEE4; --ink-2: #D6C8B8; --ink-3: #AC9E8E;
+    --rule: #3A3027; --indigo: #8FB4EE; --indigo-soft: #1E2739; --teal: #5EC4AD; --teal-soft: #143029;
+  }
   @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme='light']) {
       --paper: #17120E; --surface: #221B15; --ink: #F6EEE4; --ink-2: #D6C8B8; --ink-3: #AC9E8E;
       --rule: #3A3027; --indigo: #8FB4EE; --indigo-soft: #1E2739; --teal: #5EC4AD; --teal-soft: #143029;
     }
@@ -48,11 +56,27 @@
   footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); color: var(--ink-3); font-size: .88rem;
            display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; }
   footer a { color: var(--ink-2); }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 0 1rem; }
+  .top .eyebrow { margin: 0; }
+  .theme-toggle {
+    flex: none; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; cursor: pointer;
+    border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); color: var(--ink-2);
+    transition: color .2s, border-color .2s;
+  }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink-3); }
+  .theme-toggle[hidden] { display: none; }   /* shown by the script: without it the button could do nothing */
+  .theme-toggle svg { width: 18px; height: 18px; grid-area: 1 / 1; }
+  .theme-toggle .ic-sun { display: none; }
+  :root[data-theme='dark'] .theme-toggle .ic-sun { display: block; }
+  :root[data-theme='dark'] .theme-toggle .ic-moon { display: none; }
 </style>
 </head>
 <body>
 <main>
-  <p class="eyebrow">IIT Roorkee &middot; on Hugging Face</p>
+  <div class="top">
+    <p class="eyebrow">IIT Roorkee &middot; on Hugging Face</p>
+    <button class="theme-toggle" type="button" data-theme-toggle hidden aria-label="Switch to dark theme" title="Switch to dark theme"><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/></svg><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 019.8 4a8.4 8.4 0 102.4 16.4A8.2 8.2 0 0020 14.2z"/></svg></button>
+  </div>
   <h1>Singla Lab &amp; P&sup2;-Lab</h1>
   <p class="lede">Two research groups at the Indian Institute of Technology Roorkee, sharing models and datasets as one organisation on Hugging Face.</p>
 
@@ -77,5 +101,30 @@
     <span>Indian Institute of Technology Roorkee</span>
   </footer>
 </main>
+<script>
+(function () {
+  var root = document.documentElement, btn = document.querySelector('[data-theme-toggle]');
+  var meta = document.querySelector('meta[name="theme-color"]');
+  var sys = window.matchMedia('(prefers-color-scheme: dark)');
+  var paint = function (t) {
+    root.dataset.theme = t;
+    meta.setAttribute('content', t === 'dark' ? '#17120E' : '#F9EBDE');
+    var label = 'Switch to ' + (t === 'dark' ? 'light' : 'dark') + ' theme';
+    btn.setAttribute('aria-label', label); btn.setAttribute('title', label);
+  };
+  paint(root.dataset.theme === 'dark' ? 'dark' : (root.dataset.theme === 'light' ? 'light' : (sys.matches ? 'dark' : 'light')));
+  btn.hidden = false;
+  btn.addEventListener('click', function () {
+    var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('theme', next); } catch (e) { /* private browsing */ }
+    paint(next);
+  });
+  var onSystem = function (e) {
+    var stored; try { stored = localStorage.getItem('theme'); } catch (err) { stored = null; }
+    if (stored !== 'light' && stored !== 'dark') paint(e.matches ? 'dark' : 'light');
+  };
+  if (sys.addEventListener) sys.addEventListener('change', onSystem); else if (sys.addListener) sys.addListener(onSystem);
+})();
+</script>
 </body>
 </html>
